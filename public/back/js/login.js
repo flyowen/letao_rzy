@@ -33,6 +33,9 @@ $(function() {
             min: 2,
             max: 6,
             message: '用户名长度为2-6位'
+          },
+          callback: {
+          message:'用户名不存在'
           }
         }
       },
@@ -47,12 +50,15 @@ $(function() {
             min: 6,
             max: 12,
             message: '密码长度必须是6-12位'
+          },
+          callback: {
+            message:'密码错误'
           }
         }
       }
     }
   })
-})
+
 /*
 2. 使用submit 按钮， 会进行表单提交，此时表单校验插件会立刻进行校验
 (1)校验成功。此时会默认提交，发生页面跳转，注册表单验证成功事件，在事件中阻止默认的时间跳转，发送ajax请求
@@ -76,10 +82,10 @@ $('#form').on('success.form.bv',function (e) {
       console.log( info );
  
       if (info.error == 1000) {
-        alert('用户名不存在');
+      $('#form').data('bootstrapValidator').updateStatus('username', 'INVALID', 'callback');
       }
       if (info.error == 1001) {
-        alert('密码错误');
+       $('#form').data('bootstrapValidator').updateStatus('password', 'INVALID', 'callback');
       }
       if (info.success) {
         //登录成功，跳转首页
@@ -87,4 +93,15 @@ $('#form').on('success.form.bv',function (e) {
       }
     }
   })
+});
+/* 
+    3.表单重置功能
+      reset 按钮， 本身可以重置内容，所以此时只需要重置状态即可
+      resetForm(flase); 只重置状态
+      resetForm(true);重置内容和状态
+*/
+$('[type="reset"]').click(function() {
+  // 重置状态即可
+  $('#form').data('bootstrapValidator').resetForm();
 })
+});
