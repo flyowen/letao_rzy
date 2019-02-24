@@ -28,6 +28,9 @@ ul {
 .mt_150 {
   margin-top: 150px;
 }
+.mt_20 {
+  margin-top: 20px;
+}
 .lt_aside {
   position: fixed;
   top:0;
